@@ -1510,73 +1510,41 @@ Cuenta Dólares: 001-0276483-0</textarea>
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form id="contactForm">
+                    <form action="https://formspree.io/f/mkgqaakl" method="POST" id="contactForm">
+                     
+                        
                         <div class="form-group">
                             <label for="name">Nombre</label>
-                            <input type="text" id="name" placeholder="Ingrese su nombre" required>
+                            <input type="text" id="name" name="name" placeholder="Ingrese su nombre" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Correo Electrónico</label>
-                            <input type="email" id="email" placeholder="Ingrese su correo electrónico" required>
+                            <input type="email" id="email" name="email" placeholder="Ingrese su correo electrónico" required>
                         </div>
                         <div class="form-group">
                             <label for="subject">Asunto</label>
-                            <input type="text" id="subject" placeholder="Asunto del mensaje" required>
+                            <input type="text" id="subject" name="subject" placeholder="Asunto del mensaje" required>
                         </div>
                         <div class="form-group">
                             <label for="message">Mensaje</label>
-                            <textarea id="message" rows="5" placeholder="Escriba su mensaje" required></textarea>
+                            <textarea id="message" name="message" rows="5" placeholder="Escriba su mensaje" required></textarea>
                         </div>
+                        
+                        
+                        <input type="hidden" name="_next" value="https://tusitio.com/gracias.html">
+                       
+                        <input type="hidden" name="_subject" value="Nuevo mensaje - Club de Leones San Sebastián">
+                        
                         <div id="alert" class="alert" style="display: none;"></div>
                         <div id="spinner" class="spinner" style="display: none;">
                             <i class="fas fa-spinner fa-spin"></i> Enviando mensaje...
                         </div>
-                        <button type="submit" class="btn">Enviar Mensaje</button>
+                        <button type="submit" class="btn" id="submitBtn">Enviar Mensaje</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
-
-    <footer>
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-about">
-                    <div class="footer-logo">
-                        <img src="lci_emblem_2color_web-1.526x0-is.png" alt="Club de Leones San Sebastián">
-                        <h3>Club de Leones<br>San Sebastián</h3>
-                    </div>
-                    <p>Organización de servicio comprometida con el desarrollo de nuestra comunidad a través de acciones benéficas y proyectos sociales.</p>
-                </div>
-                <div class="footer-links">
-                    <h3>Enlaces Rápidos</h3>
-                    <ul>
-                        <li><a href="#inicio">Inicio</a></li>
-                        <li><a href="#mision">Misión</a></li>
-                        <li><a href="#etica">Código de Ética</a></li>
-                        <li><a href="#noticias">Noticias</a></li>
-                        <li><a href="#sueño-navidad">Sueño de Navidad</a></li>
-                        <li><a href="#como-ayudar">Cómo Ayudar</a></li>
-                        <li><a href="#contacto">Contacto</a></li>
-                    </ul>
-                </div>
-                <div class="footer-contact">
-                    <h3>Contacto</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> San Sebastián, frente a la iglesia católica</p>
-                    <p><i class="fas fa-phone"></i> +506 8322-6111</p>
-                    <p><i class="fas fa-envelope"></i> clsansebastian@yahoo.com</p>
-                    <div class="social-icons" style="margin-top: 1rem;">
-                        <a href="https://www.facebook.com/ClubDeLeonesSanSebastian" style="color: white; margin-right: 1rem;"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" style="color: white; margin-right: 1rem;"><i class="fab fa-instagram"></i></a>
-                        <a href="https://wa.me/50683226111" style="color: white;"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 Club de Leones San Sebastián. Todos los derechos reservados.</p>
-            </div>
-        </div>
-    </footer>
 
     <style>
        
@@ -1585,6 +1553,7 @@ Cuenta Dólares: 001-0276483-0</textarea>
             border-radius: 8px;
             margin-bottom: 1rem;
             font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         .alert-success {
@@ -1604,23 +1573,32 @@ Cuenta Dólares: 001-0276483-0</textarea>
             padding: 1rem;
             color: var(--primary);
             font-weight: 500;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 1rem;
         }
 
         .spinner i {
             margin-right: 0.5rem;
         }
+
+       
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
     </style>
 
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
         
-        emailjs.init("DvkQr9T-CzO1LF4kv"); 
-
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-
+            
             const alertBox = document.getElementById('alert');
             const spinner = document.getElementById('spinner');
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.innerHTML;
+          
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const subject = document.getElementById('subject').value;
@@ -1636,24 +1614,38 @@ Cuenta Dólares: 001-0276483-0</textarea>
                 return;
             }
 
+            
             spinner.style.display = 'block';
             alertBox.style.display = 'none';
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            submitBtn.disabled = true;
 
-            emailjs.send("service_lhi6zid", "template_eesy2nr", {
-                from_name: name,
-                reply_to: email,
-                subject: subject,
-                message: message,
-                to_email: "clsansebastian@yahoo.com" 
+         
+            const formData = new FormData(this);
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
             })
-            .then(function(response) {
-                spinner.style.display = 'none';
-                showAlert('¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.', 'success');
-                document.getElementById('contactForm').reset();
-            }, function(error) {
-                spinner.style.display = 'none';
+            .then(response => {
+                if (response.ok) {
+                    showAlert('¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.', 'success');
+                    this.reset();
+                } else {
+                    throw new Error('Error en el servidor');
+                }
+            })
+            .catch(error => {
                 showAlert('Error al enviar el mensaje. Por favor intenta nuevamente.', 'error');
-                console.error('EmailJS error:', error);
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                spinner.style.display = 'none';
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             });
         });
 
@@ -1679,6 +1671,7 @@ Cuenta Dólares: 001-0276483-0</textarea>
             const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(String(email).toLowerCase());
         }
+  
     </script>
     <script>
         let newsData = [
@@ -2283,3 +2276,4 @@ Cuenta Dólares: 001-0276483-0</textarea>
 </body>
 
 </html>
+
