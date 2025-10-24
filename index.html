@@ -1041,159 +1041,60 @@
         }
 
         /* Estilos para la galería */
-        .gallery {
+        .gallery-preview {
             background-color: #f9f9f9;
+            text-align: center;
+            padding: 4rem 0;
         }
 
-        .gallery-grid {
+        .gallery-preview h2 {
+            margin-bottom: 2rem;
+        }
+
+        .gallery-preview-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        .gallery-card {
-            background-color: white;
+        .gallery-preview-item {
             border-radius: 10px;
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: var(--transition);
-            opacity: 0;
-            transform: translateY(20px);
-            position: relative;
+            height: 200px;
         }
 
-        .gallery-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .gallery-card:hover {
-            transform: translateY(-10px) rotate(1deg);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .gallery-image {
-            height: 250px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .gallery-image img {
+        .gallery-preview-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: var(--transition-slow);
         }
 
-        .gallery-card:hover .gallery-image img {
-            transform: scale(1.1);
-        }
-
-        .gallery-content {
-            padding: 1.5rem;
-        }
-
-        .gallery-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--secondary);
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .gallery-description {
-            color: var(--text);
-            line-height: 1.6;
-            font-size: 0.9rem;
-        }
-
-        .gallery-actions {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            gap: 0.5rem;
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .gallery-card:hover .gallery-actions {
-            opacity: 1;
-        }
-
-        .gallery-delete-btn {
-            background-color: var(--accent);
-            color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .gallery-delete-btn:hover {
-            background-color: #c62828;
-            transform: scale(1.1);
-        }
-
-        /* Estilos para videos */
-        .videos-section {
-            background-color: white;
-        }
-
-        .videos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .video-card {
-            background-color: #f9f9f9;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .video-card:hover {
+        .gallery-preview-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
+        .gallery-preview-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Estilos para videos */
         .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
+            width: 100%;
+            margin: 2rem 0;
+            border-radius: 10px;
             overflow: hidden;
+            box-shadow: var(--shadow);
         }
 
         .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
+            height: 400px;
             border: none;
-        }
-
-        .video-info {
-            padding: 1rem;
-        }
-
-        .video-title {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            color: var(--secondary);
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .video-description {
-            color: var(--text);
-            font-size: 0.9rem;
-            line-height: 1.5;
         }
 
         @keyframes fadeInUp {
@@ -1446,6 +1347,14 @@ Ser mesurado en la crítica y liberal en el elogio, construir y no destruir.</te
                             <label for="adminChristmasImage">Imagen de Navidad</label>
                             <input type="file" id="adminChristmasImage" accept="image/*">
                         </div>
+                        <div class="admin-control">
+                            <label for="adminChristmasVideo1">Video 1 (URL)</label>
+                            <input type="text" id="adminChristmasVideo1" value="https://www.youtube.com/embed/dQw4w9WgXcQ">
+                        </div>
+                        <div class="admin-control">
+                            <label for="adminChristmasVideo2">Video 2 (URL)</label>
+                            <input type="text" id="adminChristmasVideo2" value="https://www.youtube.com/embed/dQw4w9WgXcQ">
+                        </div>
                     </div>
                 </div>
                 
@@ -1485,13 +1394,6 @@ CEDULA JURIDICA 3-002-045681</textarea>
                     </div>
                     <button class="add-card-btn" id="addGalleryBtn">Agregar Imagen</button>
                 </div>
-                
-                <div class="admin-section">
-                    <h3>Videos</h3>
-                    <div class="admin-controls" id="videoControls">
-                    </div>
-                    <button class="add-card-btn" id="addVideoBtn">Agregar Video</button>
-                </div>
             </div>
             
             <div class="admin-actions">
@@ -1516,7 +1418,6 @@ CEDULA JURIDICA 3-002-045681</textarea>
                     <li><a href="#mision">Misión</a></li>
                     <li><a href="#etica">Código de Ética</a></li>
                     <li><a href="#noticias">Noticias</a></li>
-                    <li><a href="#galeria">Galería</a></li>
                     <li><a href="#sueño-navidad">Sueño de Navidad</a></li>
                     <li><a href="#como-ayudar">Cómo Ayudar</a></li>
                     <li><a href="#contacto">Contacto</a></li>
@@ -1542,7 +1443,7 @@ CEDULA JURIDICA 3-002-045681</textarea>
             <div class="mission-content">
                 <div class="mission-text">
                     <p id="missionText">La Asociación Club de Leones de San Sebastián es una organización con intereses benéficos y de servicio y no pretende el lucro ni para sí ni para sus asociados.</p>
-                    <p>Afiliados a: <strong>Lions Clubs International</strong></p>
+                    <p>Afiliados a: <a href="https://www.lionsclubs.org" target="_blank" style="color: var(--secondary); text-decoration: none;"><strong>Lions Clubs International</strong></a></p>
                     
                     <h3>Objetivos</h3>
                     <div id="objectivesText">
@@ -1583,13 +1484,14 @@ CEDULA JURIDICA 3-002-045681</textarea>
         </div>
     </section>
 
-    <section class="gallery" id="galeria">
+    <section class="gallery-preview">
         <div class="container">
             <div class="section-title">
                 <h2>Galería</h2>
             </div>
-            <div class="gallery-grid" id="galleryGrid">
+            <div class="gallery-preview-grid" id="galleryPreviewGrid">
             </div>
+            <a href="galeria.html" class="btn">Ver Galería Completa</a>
         </div>
     </section>
 
@@ -1604,6 +1506,10 @@ CEDULA JURIDICA 3-002-045681</textarea>
                     <p id="christmasText">La participación del leonismo en este programa nace hace más de 15 años a raíz del interés de Televisora de Costa Rica-Canal 7, propiamente de Telenoticias por llevar a cabo un proyecto de este tipo.</p>
                     <p>En aquel entonces se iniciaron los primeros contactos televisora / leones, con una reunión en el Canal 7 donde participamos varios leones. De inmediato iniciamos el trabajo con la selección de casos, tanto por los aportados por ellos como los que cada club que participo había presentado.</p>
                     <p>La mecánica utilizada se basó en estudios socioeconómicos de cada familia, así como el orden de presentación de casos, además de una selección compleja y detallada en conjunto con la televisora donde siempre prevaleció la armonía y buen entendimiento.</p>
+                    
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                     
                     <div class="christmas-stats">
                         <div class="stat">
@@ -1626,14 +1532,9 @@ CEDULA JURIDICA 3-002-045681</textarea>
                 </div>
                 <div class="mission-image">
                     <img id="christmasImage" src="https://www.leonesmonarca.sabanalarga.org/Fundador-Club-Leones.jpg" alt="Sueño de Navidad">
-                </div>
-            </div>
-            
-            <div class="videos-section" style="margin-top: 3rem;">
-                <div class="section-title">
-                    <h3>Videos del Sueño de Navidad</h3>
-                </div>
-                <div class="videos-grid" id="christmasVideosGrid">
+                    <div class="video-container" style="margin-top: 2rem;">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1651,16 +1552,6 @@ CEDULA JURIDICA 3-002-045681</textarea>
                 <div class="bank-cards" id="bankCards">
                     
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="videos-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Videos</h2>
-            </div>
-            <div class="videos-grid" id="videosGrid">
             </div>
         </div>
     </section>
@@ -1804,7 +1695,7 @@ CEDULA JURIDICA 3-002-045681</textarea>
                         <li><a href="#inicio">Inicio</a></li>
                         <li><a href="#mision">Misión</a></li>
                         <li><a href="#noticias">Noticias</a></li>
-                        <li><a href="#galeria">Galería</a></li>
+                        <li><a href="galeria.html">Galería</a></li>
                         <li><a href="#sueño-navidad">Sueño de Navidad</a></li>
                         <li><a href="#como-ayudar">Cómo Ayudar</a></li>
                         <li><a href="#contacto">Contacto</a></li>
@@ -2000,33 +1891,17 @@ CEDULA JURIDICA 3-002-045681</textarea>
                 title: "Reunión de Planificación",
                 description: "Miembros del club reunidos para planificar las próximas actividades y proyectos.",
                 image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80"
-            }
-        ];
-
-        let videoData = [
-            {
-                title: "Sueño de Navidad 2022",
-                description: "Resumen de nuestra campaña navideña del año pasado, donde llevamos alegría a cientos de familias.",
-                url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
             },
             {
-                title: "Proyecto Comunitario 2023",
-                description: "Documental sobre nuestro proyecto de mejoramiento de espacios públicos en San Sebastián.",
-                url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+                title: "Actividad Comunitaria",
+                description: "Participación en actividades de mejoramiento de espacios públicos.",
+                image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1774&q=80"
             }
         ];
 
         let christmasVideoData = [
-            {
-                title: "Historia del Sueño de Navidad",
-                description: "Conoce la historia y evolución de nuestro programa estrella de Navidad.",
-                url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
-            },
-            {
-                title: "Testimonios del Sueño de Navidad",
-                description: "Historias conmovedoras de familias beneficiadas por nuestro programa navideño.",
-                url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
-            }
+            "https://www.youtube.com/embed/dQw4w9WgXcQ",
+            "https://www.youtube.com/embed/dQw4w9WgXcQ"
         ];
 
         function loadFromStorage() {
@@ -2035,7 +1910,6 @@ CEDULA JURIDICA 3-002-045681</textarea>
             const savedEthics = localStorage.getItem('clubLeonesEthics');
             const savedBank = localStorage.getItem('clubLeonesBank');
             const savedGallery = localStorage.getItem('clubLeonesGallery');
-            const savedVideos = localStorage.getItem('clubLeonesVideos');
             const savedChristmasVideos = localStorage.getItem('clubLeonesChristmasVideos');
             const savedContent = localStorage.getItem('clubLeonesContent');
             
@@ -2044,7 +1918,6 @@ CEDULA JURIDICA 3-002-045681</textarea>
             if (savedEthics) ethicsData = JSON.parse(savedEthics);
             if (savedBank) bankData = JSON.parse(savedBank);
             if (savedGallery) galleryData = JSON.parse(savedGallery);
-            if (savedVideos) videoData = JSON.parse(savedVideos);
             if (savedChristmasVideos) christmasVideoData = JSON.parse(savedChristmasVideos);
             if (savedContent) {
                 const content = JSON.parse(savedContent);
@@ -2081,7 +1954,6 @@ CEDULA JURIDICA 3-002-045681</textarea>
             localStorage.setItem('clubLeonesEthics', JSON.stringify(ethicsData));
             localStorage.setItem('clubLeonesBank', JSON.stringify(bankData));
             localStorage.setItem('clubLeonesGallery', JSON.stringify(galleryData));
-            localStorage.setItem('clubLeonesVideos', JSON.stringify(videoData));
             localStorage.setItem('clubLeonesChristmasVideos', JSON.stringify(christmasVideoData));
             
             const content = {
@@ -2150,10 +2022,6 @@ CEDULA JURIDICA 3-002-045681</textarea>
             addGalleryCard();
         });
 
-        document.getElementById('addVideoBtn').addEventListener('click', function() {
-            addVideoCard();
-        });
-
         function loadAdminValues() {
             document.getElementById('adminHeroTitle').value = document.getElementById('heroTitle').textContent;
             document.getElementById('adminHeroText').value = document.getElementById('heroText').textContent;
@@ -2179,10 +2047,12 @@ Cuenta IBAN Dólares: ${bank.CuentaIBANDolares}
 ${bank.cedula}`
             ).join('\n\n');
             
+            document.getElementById('adminChristmasVideo1').value = christmasVideoData[0] || "https://www.youtube.com/embed/dQw4w9WgXcQ";
+            document.getElementById('adminChristmasVideo2').value = christmasVideoData[1] || "https://www.youtube.com/embed/dQw4w9WgXcQ";
+            
             loadNewsControls();
             loadHelpControls();
             loadGalleryControls();
-            loadVideoControls();
         }
 
         function loadNewsControls() {
@@ -2261,31 +2131,6 @@ ${bank.cedula}`
             });
         }
 
-        function loadVideoControls() {
-            const videoControls = document.getElementById('videoControls');
-            videoControls.innerHTML = '';
-            
-            videoData.forEach((video, index) => {
-                const videoControl = document.createElement('div');
-                videoControl.className = 'admin-control';
-                videoControl.innerHTML = `
-                    <h4>Video ${index + 1}</h4>
-                    <label for="adminVideoTitle${index}">Título</label>
-                    <input type="text" id="adminVideoTitle${index}" value="${video.title}">
-                    <label for="adminVideoDescription${index}">Descripción</label>
-                    <textarea id="adminVideoDescription${index}" rows="3">${video.description}</textarea>
-                    <label for="adminVideoUrl${index}">URL del Video</label>
-                    <input type="text" id="adminVideoUrl${index}" value="${video.url}">
-                    <button class="remove-card-btn" data-index="${index}">Eliminar Video</button>
-                `;
-                videoControls.appendChild(videoControl);
-                
-                videoControl.querySelector('.remove-card-btn').addEventListener('click', function() {
-                    removeVideoCard(index);
-                });
-            });
-        }
-
         function addNewsCard() {
             newsData.push({
                 title: "Nueva Noticia",
@@ -2316,37 +2161,16 @@ ${bank.cedula}`
             });
             
             loadGalleryControls();
-            renderGallery();
+            renderGalleryPreview();
         }
 
         function removeGalleryCard(index) {
             if (galleryData.length > 1) {
                 galleryData.splice(index, 1);
                 loadGalleryControls();
-                renderGallery();
+                renderGalleryPreview();
             } else {
                 alert('Debe haber al menos una imagen en la galería.');
-            }
-        }
-
-        function addVideoCard() {
-            videoData.push({
-                title: "Nuevo Video",
-                description: "Descripción del nuevo video.",
-                url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
-            });
-            
-            loadVideoControls();
-            renderVideos();
-        }
-
-        function removeVideoCard(index) {
-            if (videoData.length > 1) {
-                videoData.splice(index, 1);
-                loadVideoControls();
-                renderVideos();
-            } else {
-                alert('Debe haber al menos un video.');
             }
         }
 
@@ -2367,6 +2191,9 @@ ${bank.cedula}`
             
             document.getElementById('christmasTitle').textContent = document.getElementById('adminChristmasTitle').value;
             document.getElementById('christmasText').textContent = document.getElementById('adminChristmasText').value;
+            
+            christmasVideoData[0] = document.getElementById('adminChristmasVideo1').value;
+            christmasVideoData[1] = document.getElementById('adminChristmasVideo2').value;
             
             const bankInfoText = document.getElementById('adminBankInfo').value.split('\n\n');
             bankData = bankInfoText.map(bankText => {
@@ -2416,19 +2243,12 @@ ${bank.cedula}`
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         gallery.image = e.target.result;
-                        renderGallery();
+                        renderGalleryPreview();
                     };
                     reader.readAsDataURL(imageInput.files[0]);
                 }
             });
-            renderGallery();
-            
-            videoData.forEach((video, index) => {
-                video.title = document.getElementById(`adminVideoTitle${index}`).value;
-                video.description = document.getElementById(`adminVideoDescription${index}`).value;
-                video.url = document.getElementById(`adminVideoUrl${index}`).value;
-            });
-            renderVideos();
+            renderGalleryPreview();
             
             const heroImageInput = document.getElementById('adminHeroImage');
             if (heroImageInput.files && heroImageInput.files[0]) {
@@ -2582,76 +2402,31 @@ ${bank.cedula}`
             });
         }
 
-        function renderGallery() {
-            const galleryGrid = document.getElementById('galleryGrid');
-            galleryGrid.innerHTML = '';
+        function renderGalleryPreview() {
+            const galleryPreviewGrid = document.getElementById('galleryPreviewGrid');
+            galleryPreviewGrid.innerHTML = '';
             
-            galleryData.forEach((gallery, index) => {
-                const galleryCard = document.createElement('div');
-                galleryCard.className = 'gallery-card';
-                galleryCard.innerHTML = `
-                    <div class="gallery-image">
-                        <img src="${gallery.image}" alt="${gallery.title}">
-                        <div class="gallery-actions">
-                            <button class="gallery-delete-btn" data-index="${index}">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="gallery-content">
-                        <h3 class="gallery-title">${gallery.title}</h3>
-                        <p class="gallery-description">${gallery.description}</p>
-                    </div>
+            // Mostrar solo las primeras 4 imágenes en la vista previa
+            const previewImages = galleryData.slice(0, 4);
+            
+            previewImages.forEach((gallery, index) => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-preview-item';
+                galleryItem.innerHTML = `
+                    <img src="${gallery.image}" alt="${gallery.title}">
                 `;
-                galleryGrid.appendChild(galleryCard);
-                
-                galleryCard.querySelector('.gallery-delete-btn').addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    removeGalleryCard(index);
-                });
-                
-                setTimeout(() => {
-                    galleryCard.classList.add('visible');
-                }, index * 200);
+                galleryPreviewGrid.appendChild(galleryItem);
             });
         }
 
-        function renderVideos() {
-            const videosGrid = document.getElementById('videosGrid');
-            const christmasVideosGrid = document.getElementById('christmasVideosGrid');
+        function renderChristmasVideos() {
+            const christmasContent = document.querySelector('.christmas-content');
+            const videoContainers = christmasContent.querySelectorAll('.video-container');
             
-            videosGrid.innerHTML = '';
-            christmasVideosGrid.innerHTML = '';
-            
-            videoData.forEach((video, index) => {
-                const videoCard = document.createElement('div');
-                videoCard.className = 'video-card';
-                videoCard.innerHTML = `
-                    <div class="video-container">
-                        <iframe src="${video.url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <h3 class="video-title">${video.title}</h3>
-                        <p class="video-description">${video.description}</p>
-                    </div>
-                `;
-                videosGrid.appendChild(videoCard);
-            });
-            
-            christmasVideoData.forEach((video, index) => {
-                const videoCard = document.createElement('div');
-                videoCard.className = 'video-card';
-                videoCard.innerHTML = `
-                    <div class="video-container">
-                        <iframe src="${video.url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <h3 class="video-title">${video.title}</h3>
-                        <p class="video-description">${video.description}</p>
-                    </div>
-                `;
-                christmasVideosGrid.appendChild(videoCard);
-            });
+            if (videoContainers.length >= 2) {
+                videoContainers[0].querySelector('iframe').src = christmasVideoData[0];
+                videoContainers[1].querySelector('iframe').src = christmasVideoData[1];
+            }
         }
 
         window.addEventListener('click', function(event) {
@@ -2707,7 +2482,7 @@ ${bank.cedula}`
             const newsCards = document.querySelectorAll('.news-card');
             const helpOptions = document.querySelectorAll('.help-option');
             const ethicsCards = document.querySelectorAll('.ethics-card');
-            const galleryCards = document.querySelectorAll('.gallery-card');
+            const galleryItems = document.querySelectorAll('.gallery-preview-item');
             
             sections.forEach(section => {
                 const sectionTop = section.getBoundingClientRect().top;
@@ -2763,14 +2538,15 @@ ${bank.cedula}`
                 }
             });
             
-            galleryCards.forEach((card, index) => {
-                const cardTop = card.getBoundingClientRect().top;
+            galleryItems.forEach((item, index) => {
+                const itemTop = item.getBoundingClientRect().top;
                 const windowHeight = window.innerHeight;
                 
-                if (cardTop < windowHeight * 0.85) {
+                if (itemTop < windowHeight * 0.85) {
                     setTimeout(() => {
-                        card.classList.add('visible');
-                    }, index * 200);
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, index * 100);
                 }
             });
         }
@@ -2793,8 +2569,8 @@ ${bank.cedula}`
             renderHelp();
             renderEthics();
             renderBankCards();
-            renderGallery();
-            renderVideos();
+            renderGalleryPreview();
+            renderChristmasVideos();
         });
 
         window.addEventListener('scroll', () => {
