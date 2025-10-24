@@ -1040,6 +1040,162 @@
             background-color: #c62828;
         }
 
+        /* Estilos para la galería */
+        .gallery {
+            background-color: #f9f9f9;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+            position: relative;
+        }
+
+        .gallery-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-slow);
+        }
+
+        .gallery-card:hover .gallery-image img {
+            transform: scale(1.1);
+        }
+
+        .gallery-content {
+            padding: 1.5rem;
+        }
+
+        .gallery-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .gallery-description {
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .gallery-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 0.5rem;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-card:hover .gallery-actions {
+            opacity: 1;
+        }
+
+        .gallery-delete-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .gallery-delete-btn:hover {
+            background-color: #c62828;
+            transform: scale(1.1);
+        }
+
+        /* Estilos para videos */
+        .videos-section {
+            background-color: white;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 1rem;
+        }
+
+        .video-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .video-description {
+            color: var(--text);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -1304,17 +1460,37 @@ Ser mesurado en la crítica y liberal en el elogio, construir y no destruir.</te
                     <div class="admin-controls">
                         <div class="admin-control">
                             <label for="adminBankInfo">Información Bancaria</label>
-                            <textarea id="adminBankInfo" rows="10">BAC SAN JOSÉ
+                            <textarea id="adminBankInfo" rows="10">BAC CREDOMATIC
 SINPE Móvil: 8322-6111
 Cuenta Colones: 800800807
+Cuenta IBAN Colones: CR17010200008008008070
 Cuenta Dólares: 800800815
+Cuenta IBAN Dólares: CR07010200008008008153
+CEDULA JURIDICA 3-002-045681
 
-BANCO DE COSTA RICA
-SINPE Móvil: 7300-2262
-Cuenta Colones: 001-0151857-7
-Cuenta Dólares: 001-0276483-0</textarea>
+Banco de Costa Rica
+SINPE Móvil: 8322-6111
+Cuenta Colones: 001-0509472-0
+Cuenta IBAN Colones: CR77015201001050947204
+Cuenta Dólares: 001-0276483-0
+Cuenta IBAN Dólares: CR06015201001027648306
+CEDULA JURIDICA 3-002-045681</textarea>
                         </div>
                     </div>
+                </div>
+                
+                <div class="admin-section">
+                    <h3>Galería</h3>
+                    <div class="admin-controls" id="galleryControls">
+                    </div>
+                    <button class="add-card-btn" id="addGalleryBtn">Agregar Imagen</button>
+                </div>
+                
+                <div class="admin-section">
+                    <h3>Videos</h3>
+                    <div class="admin-controls" id="videoControls">
+                    </div>
+                    <button class="add-card-btn" id="addVideoBtn">Agregar Video</button>
                 </div>
             </div>
             
@@ -1340,6 +1516,7 @@ Cuenta Dólares: 001-0276483-0</textarea>
                     <li><a href="#mision">Misión</a></li>
                     <li><a href="#etica">Código de Ética</a></li>
                     <li><a href="#noticias">Noticias</a></li>
+                    <li><a href="#galeria">Galería</a></li>
                     <li><a href="#sueño-navidad">Sueño de Navidad</a></li>
                     <li><a href="#como-ayudar">Cómo Ayudar</a></li>
                     <li><a href="#contacto">Contacto</a></li>
@@ -1406,6 +1583,16 @@ Cuenta Dólares: 001-0276483-0</textarea>
         </div>
     </section>
 
+    <section class="gallery" id="galeria">
+        <div class="container">
+            <div class="section-title">
+                <h2>Galería</h2>
+            </div>
+            <div class="gallery-grid" id="galleryGrid">
+            </div>
+        </div>
+    </section>
+
     <section class="christmas-dream" id="sueño-navidad">
         <div class="container">
             <div class="section-title">
@@ -1441,6 +1628,14 @@ Cuenta Dólares: 001-0276483-0</textarea>
                     <img id="christmasImage" src="https://www.leonesmonarca.sabanalarga.org/Fundador-Club-Leones.jpg" alt="Sueño de Navidad">
                 </div>
             </div>
+            
+            <div class="videos-section" style="margin-top: 3rem;">
+                <div class="section-title">
+                    <h3>Videos del Sueño de Navidad</h3>
+                </div>
+                <div class="videos-grid" id="christmasVideosGrid">
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1460,8 +1655,17 @@ Cuenta Dólares: 001-0276483-0</textarea>
         </div>
     </section>
 
+    <section class="videos-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Videos</h2>
+            </div>
+            <div class="videos-grid" id="videosGrid">
+            </div>
+        </div>
+    </section>
         
-       <section class="contact" id="contacto">
+    <section class="contact" id="contacto">
         <div class="container">
             <div class="section-title">
                 <h2>Contáctanos</h2>
@@ -1600,6 +1804,7 @@ Cuenta Dólares: 001-0276483-0</textarea>
                         <li><a href="#inicio">Inicio</a></li>
                         <li><a href="#mision">Misión</a></li>
                         <li><a href="#noticias">Noticias</a></li>
+                        <li><a href="#galeria">Galería</a></li>
                         <li><a href="#sueño-navidad">Sueño de Navidad</a></li>
                         <li><a href="#como-ayudar">Cómo Ayudar</a></li>
                         <li><a href="#contacto">Contacto</a></li>
@@ -1617,7 +1822,7 @@ Cuenta Dólares: 001-0276483-0</textarea>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Club de Leones San Sebastián. Todos los derechos reservados.</p>
+                <p>&copy; 2025 Club de Leones San Sebastián. Afiliados a <a href="https://www.lionsclubs.org" target="_blank" style="color: var(--primary); text-decoration: none;"><strong>Lions Clubs International</strong></a>. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
@@ -1761,16 +1966,66 @@ Cuenta Dólares: 001-0276483-0</textarea>
 
         let bankData = [
             {
-                bank: "BAC SAN JOSÉ",
+                bank: "BAC CREDOMATIC",
                 sinpe: "8322-6111",
                 colones: "800800807",
-                dolares: "800800815"
+                CuentaIBANColones: "CR17010200008008008070",
+                dolares: "800800815",
+                CuentaIBANDolares: "CR07010200008008008153",
+                cedula: "CEDULA JURIDICA 3-002-045681"
             },
             {
-                bank: "BANCO DE COSTA RICA",
-                sinpe: "7300-2262",
-                colones: "001-0151857-7",
-                dolares: "001-0276483-0"
+                bank: "Banco de Costa Rica",
+                sinpe: "8322-6111",
+                colones: "001-0509472-0",
+                CuentaIBANColones: "CR77015201001050947204",
+                dolares: "001-0276483-0",
+                CuentaIBANDolares: "CR06015201001027648306",
+                cedula: "CEDULA JURIDICA 3-002-045681"
+            }
+        ];
+
+        let galleryData = [
+            {
+                title: "Evento de Recolección de Alimentos",
+                description: "Voluntarios del club durante la campaña de recolección de alimentos para familias necesitadas.",
+                image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1774&q=80"
+            },
+            {
+                title: "Entrega de Regalos Navideños",
+                description: "Entregando alegría y regalos a niños de la comunidad durante nuestra campaña navideña.",
+                image: "https://images.unsplash.com/photo-1574359411659-619d037f3f54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80"
+            },
+            {
+                title: "Reunión de Planificación",
+                description: "Miembros del club reunidos para planificar las próximas actividades y proyectos.",
+                image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80"
+            }
+        ];
+
+        let videoData = [
+            {
+                title: "Sueño de Navidad 2022",
+                description: "Resumen de nuestra campaña navideña del año pasado, donde llevamos alegría a cientos de familias.",
+                url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            {
+                title: "Proyecto Comunitario 2023",
+                description: "Documental sobre nuestro proyecto de mejoramiento de espacios públicos en San Sebastián.",
+                url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            }
+        ];
+
+        let christmasVideoData = [
+            {
+                title: "Historia del Sueño de Navidad",
+                description: "Conoce la historia y evolución de nuestro programa estrella de Navidad.",
+                url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            {
+                title: "Testimonios del Sueño de Navidad",
+                description: "Historias conmovedoras de familias beneficiadas por nuestro programa navideño.",
+                url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
             }
         ];
 
@@ -1779,12 +2034,18 @@ Cuenta Dólares: 001-0276483-0</textarea>
             const savedHelp = localStorage.getItem('clubLeonesHelp');
             const savedEthics = localStorage.getItem('clubLeonesEthics');
             const savedBank = localStorage.getItem('clubLeonesBank');
+            const savedGallery = localStorage.getItem('clubLeonesGallery');
+            const savedVideos = localStorage.getItem('clubLeonesVideos');
+            const savedChristmasVideos = localStorage.getItem('clubLeonesChristmasVideos');
             const savedContent = localStorage.getItem('clubLeonesContent');
             
             if (savedNews) newsData = JSON.parse(savedNews);
             if (savedHelp) helpData = JSON.parse(savedHelp);
             if (savedEthics) ethicsData = JSON.parse(savedEthics);
             if (savedBank) bankData = JSON.parse(savedBank);
+            if (savedGallery) galleryData = JSON.parse(savedGallery);
+            if (savedVideos) videoData = JSON.parse(savedVideos);
+            if (savedChristmasVideos) christmasVideoData = JSON.parse(savedChristmasVideos);
             if (savedContent) {
                 const content = JSON.parse(savedContent);
                 document.getElementById('heroTitle').textContent = content.heroTitle || "Servicio que Transforma Comunidades";
@@ -1819,6 +2080,9 @@ Cuenta Dólares: 001-0276483-0</textarea>
             localStorage.setItem('clubLeonesHelp', JSON.stringify(helpData));
             localStorage.setItem('clubLeonesEthics', JSON.stringify(ethicsData));
             localStorage.setItem('clubLeonesBank', JSON.stringify(bankData));
+            localStorage.setItem('clubLeonesGallery', JSON.stringify(galleryData));
+            localStorage.setItem('clubLeonesVideos', JSON.stringify(videoData));
+            localStorage.setItem('clubLeonesChristmasVideos', JSON.stringify(christmasVideoData));
             
             const content = {
                 heroTitle: document.getElementById('heroTitle').textContent,
@@ -1882,6 +2146,14 @@ Cuenta Dólares: 001-0276483-0</textarea>
             addNewsCard();
         });
 
+        document.getElementById('addGalleryBtn').addEventListener('click', function() {
+            addGalleryCard();
+        });
+
+        document.getElementById('addVideoBtn').addEventListener('click', function() {
+            addVideoCard();
+        });
+
         function loadAdminValues() {
             document.getElementById('adminHeroTitle').value = document.getElementById('heroTitle').textContent;
             document.getElementById('adminHeroText').value = document.getElementById('heroText').textContent;
@@ -1898,12 +2170,19 @@ Cuenta Dólares: 001-0276483-0</textarea>
             document.getElementById('adminChristmasText').value = document.getElementById('christmasText').textContent;
             
             document.getElementById('adminBankInfo').value = bankData.map(bank => 
-                `${bank.bank}\nSINPE Móvil: ${bank.sinpe}\nCuenta Colones: ${bank.colones}\nCuenta Dólares: ${bank.dolares}`
+                `${bank.bank}
+SINPE Móvil: ${bank.sinpe}
+Cuenta Colones: ${bank.colones}
+Cuenta IBAN Colones: ${bank.CuentaIBANColones}
+Cuenta Dólares: ${bank.dolares}
+Cuenta IBAN Dólares: ${bank.CuentaIBANDolares}
+${bank.cedula}`
             ).join('\n\n');
             
             loadNewsControls();
-            
             loadHelpControls();
+            loadGalleryControls();
+            loadVideoControls();
         }
 
         function loadNewsControls() {
@@ -1955,6 +2234,58 @@ Cuenta Dólares: 001-0276483-0</textarea>
             });
         }
 
+        function loadGalleryControls() {
+            const galleryControls = document.getElementById('galleryControls');
+            galleryControls.innerHTML = '';
+            
+            galleryData.forEach((gallery, index) => {
+                const galleryControl = document.createElement('div');
+                galleryControl.className = 'admin-control';
+                galleryControl.innerHTML = `
+                    <h4>Imagen ${index + 1}</h4>
+                    <label for="adminGalleryTitle${index}">Título</label>
+                    <input type="text" id="adminGalleryTitle${index}" value="${gallery.title}">
+                    <label for="adminGalleryDescription${index}">Descripción</label>
+                    <textarea id="adminGalleryDescription${index}" rows="3">${gallery.description}</textarea>
+                    <div class="file-upload">
+                        <label for="adminGalleryImage${index}">Imagen</label>
+                        <input type="file" id="adminGalleryImage${index}" accept="image/*">
+                    </div>
+                    <button class="remove-card-btn" data-index="${index}">Eliminar Imagen</button>
+                `;
+                galleryControls.appendChild(galleryControl);
+                
+                galleryControl.querySelector('.remove-card-btn').addEventListener('click', function() {
+                    removeGalleryCard(index);
+                });
+            });
+        }
+
+        function loadVideoControls() {
+            const videoControls = document.getElementById('videoControls');
+            videoControls.innerHTML = '';
+            
+            videoData.forEach((video, index) => {
+                const videoControl = document.createElement('div');
+                videoControl.className = 'admin-control';
+                videoControl.innerHTML = `
+                    <h4>Video ${index + 1}</h4>
+                    <label for="adminVideoTitle${index}">Título</label>
+                    <input type="text" id="adminVideoTitle${index}" value="${video.title}">
+                    <label for="adminVideoDescription${index}">Descripción</label>
+                    <textarea id="adminVideoDescription${index}" rows="3">${video.description}</textarea>
+                    <label for="adminVideoUrl${index}">URL del Video</label>
+                    <input type="text" id="adminVideoUrl${index}" value="${video.url}">
+                    <button class="remove-card-btn" data-index="${index}">Eliminar Video</button>
+                `;
+                videoControls.appendChild(videoControl);
+                
+                videoControl.querySelector('.remove-card-btn').addEventListener('click', function() {
+                    removeVideoCard(index);
+                });
+            });
+        }
+
         function addNewsCard() {
             newsData.push({
                 title: "Nueva Noticia",
@@ -1977,21 +2308,66 @@ Cuenta Dólares: 001-0276483-0</textarea>
             }
         }
 
+        function addGalleryCard() {
+            galleryData.push({
+                title: "Nueva Imagen",
+                description: "Descripción de la nueva imagen.",
+                image: "https://images.unsplash.com/photo-1544984243-ec57ea16fe25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80"
+            });
+            
+            loadGalleryControls();
+            renderGallery();
+        }
+
+        function removeGalleryCard(index) {
+            if (galleryData.length > 1) {
+                galleryData.splice(index, 1);
+                loadGalleryControls();
+                renderGallery();
+            } else {
+                alert('Debe haber al menos una imagen en la galería.');
+            }
+        }
+
+        function addVideoCard() {
+            videoData.push({
+                title: "Nuevo Video",
+                description: "Descripción del nuevo video.",
+                url: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            });
+            
+            loadVideoControls();
+            renderVideos();
+        }
+
+        function removeVideoCard(index) {
+            if (videoData.length > 1) {
+                videoData.splice(index, 1);
+                loadVideoControls();
+                renderVideos();
+            } else {
+                alert('Debe haber al menos un video.');
+            }
+        }
+
         function saveAdminChanges() {
             document.getElementById('heroTitle').textContent = document.getElementById('adminHeroTitle').value;
             document.getElementById('heroText').textContent = document.getElementById('adminHeroText').value;
             
-            
             document.getElementById('missionTitle').textContent = document.getElementById('adminMissionTitle').value;
             document.getElementById('missionText').textContent = document.getElementById('adminMissionText').value;
-                        const objectivesText = document.getElementById('adminObjectives').value.split('\n');
+            
+            const objectivesText = document.getElementById('adminObjectives').value.split('\n');
             document.getElementById('objectivesText').innerHTML = objectivesText.map(obj => `<p>${obj}</p>`).join('');
+            
             document.getElementById('ethicsTitle').textContent = document.getElementById('adminEthicsTitle').value;
             document.getElementById('ethicsIntro').textContent = document.getElementById('adminEthicsIntro').value;
             ethicsData = document.getElementById('adminEthics').value.split('\n');
             renderEthics();
+            
             document.getElementById('christmasTitle').textContent = document.getElementById('adminChristmasTitle').value;
             document.getElementById('christmasText').textContent = document.getElementById('adminChristmasText').value;
+            
             const bankInfoText = document.getElementById('adminBankInfo').value.split('\n\n');
             bankData = bankInfoText.map(bankText => {
                 const lines = bankText.split('\n');
@@ -1999,7 +2375,10 @@ Cuenta Dólares: 001-0276483-0</textarea>
                     bank: lines[0],
                     sinpe: lines[1]?.replace('SINPE Móvil: ', '') || '',
                     colones: lines[2]?.replace('Cuenta Colones: ', '') || '',
-                    dolares: lines[3]?.replace('Cuenta Dólares: ', '') || ''
+                    CuentaIBANColones: lines[3]?.replace('Cuenta IBAN Colones: ', '') || '',
+                    dolares: lines[4]?.replace('Cuenta Dólares: ', '') || '',
+                    CuentaIBANDolares: lines[5]?.replace('Cuenta IBAN Dólares: ', '') || '',
+                    cedula: lines[6] || ''
                 };
             });
             renderBankCards();
@@ -2027,6 +2406,29 @@ Cuenta Dólares: 001-0276483-0</textarea>
                 help.icon = document.getElementById(`adminHelpIcon${index}`).value;
             });
             renderHelp();
+            
+            galleryData.forEach((gallery, index) => {
+                gallery.title = document.getElementById(`adminGalleryTitle${index}`).value;
+                gallery.description = document.getElementById(`adminGalleryDescription${index}`).value;
+                
+                const imageInput = document.getElementById(`adminGalleryImage${index}`);
+                if (imageInput.files && imageInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        gallery.image = e.target.result;
+                        renderGallery();
+                    };
+                    reader.readAsDataURL(imageInput.files[0]);
+                }
+            });
+            renderGallery();
+            
+            videoData.forEach((video, index) => {
+                video.title = document.getElementById(`adminVideoTitle${index}`).value;
+                video.description = document.getElementById(`adminVideoDescription${index}`).value;
+                video.url = document.getElementById(`adminVideoUrl${index}`).value;
+            });
+            renderVideos();
             
             const heroImageInput = document.getElementById('adminHeroImage');
             if (heroImageInput.files && heroImageInput.files[0]) {
@@ -2159,12 +2561,96 @@ Cuenta Dólares: 001-0276483-0</textarea>
                             <span class="bank-value">${bank.colones}</span>
                         </div>
                         <div class="bank-item">
+                            <span class="bank-label">IBAN Colones:</span>
+                            <span class="bank-value">${bank.CuentaIBANColones}</span>
+                        </div>
+                        <div class="bank-item">
                             <span class="bank-label">Cuenta Dólares:</span>
                             <span class="bank-value">${bank.dolares}</span>
+                        </div>
+                        <div class="bank-item">
+                            <span class="bank-label">IBAN Dólares:</span>
+                            <span class="bank-value">${bank.CuentaIBANDolares}</span>
+                        </div>
+                        <div class="bank-item">
+                            <span class="bank-label">Cédula Jurídica:</span>
+                            <span class="bank-value">${bank.cedula}</span>
                         </div>
                     </div>
                 `;
                 bankCards.appendChild(bankCard);
+            });
+        }
+
+        function renderGallery() {
+            const galleryGrid = document.getElementById('galleryGrid');
+            galleryGrid.innerHTML = '';
+            
+            galleryData.forEach((gallery, index) => {
+                const galleryCard = document.createElement('div');
+                galleryCard.className = 'gallery-card';
+                galleryCard.innerHTML = `
+                    <div class="gallery-image">
+                        <img src="${gallery.image}" alt="${gallery.title}">
+                        <div class="gallery-actions">
+                            <button class="gallery-delete-btn" data-index="${index}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="gallery-content">
+                        <h3 class="gallery-title">${gallery.title}</h3>
+                        <p class="gallery-description">${gallery.description}</p>
+                    </div>
+                `;
+                galleryGrid.appendChild(galleryCard);
+                
+                galleryCard.querySelector('.gallery-delete-btn').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    removeGalleryCard(index);
+                });
+                
+                setTimeout(() => {
+                    galleryCard.classList.add('visible');
+                }, index * 200);
+            });
+        }
+
+        function renderVideos() {
+            const videosGrid = document.getElementById('videosGrid');
+            const christmasVideosGrid = document.getElementById('christmasVideosGrid');
+            
+            videosGrid.innerHTML = '';
+            christmasVideosGrid.innerHTML = '';
+            
+            videoData.forEach((video, index) => {
+                const videoCard = document.createElement('div');
+                videoCard.className = 'video-card';
+                videoCard.innerHTML = `
+                    <div class="video-container">
+                        <iframe src="${video.url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">${video.title}</h3>
+                        <p class="video-description">${video.description}</p>
+                    </div>
+                `;
+                videosGrid.appendChild(videoCard);
+            });
+            
+            christmasVideoData.forEach((video, index) => {
+                const videoCard = document.createElement('div');
+                videoCard.className = 'video-card';
+                videoCard.innerHTML = `
+                    <div class="video-container">
+                        <iframe src="${video.url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 class="video-title">${video.title}</h3>
+                        <p class="video-description">${video.description}</p>
+                    </div>
+                `;
+                christmasVideosGrid.appendChild(videoCard);
             });
         }
 
@@ -2215,13 +2701,13 @@ Cuenta Dólares: 001-0276483-0</textarea>
             }
         }
 
-        
         function checkScroll() {
             const sections = document.querySelectorAll('section');
             const stats = document.querySelectorAll('.stat');
             const newsCards = document.querySelectorAll('.news-card');
             const helpOptions = document.querySelectorAll('.help-option');
             const ethicsCards = document.querySelectorAll('.ethics-card');
+            const galleryCards = document.querySelectorAll('.gallery-card');
             
             sections.forEach(section => {
                 const sectionTop = section.getBoundingClientRect().top;
@@ -2276,6 +2762,17 @@ Cuenta Dólares: 001-0276483-0</textarea>
                     }, index * 100);
                 }
             });
+            
+            galleryCards.forEach((card, index) => {
+                const cardTop = card.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (cardTop < windowHeight * 0.85) {
+                    setTimeout(() => {
+                        card.classList.add('visible');
+                    }, index * 200);
+                }
+            });
         }
 
         function headerScroll() {
@@ -2296,6 +2793,8 @@ Cuenta Dólares: 001-0276483-0</textarea>
             renderHelp();
             renderEthics();
             renderBankCards();
+            renderGallery();
+            renderVideos();
         });
 
         window.addEventListener('scroll', () => {
@@ -2304,8 +2803,4 @@ Cuenta Dólares: 001-0276483-0</textarea>
         });
     </script>
 </body>
-
 </html>
-
-
-
